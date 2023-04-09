@@ -27,6 +27,8 @@ client.commands = new Collection();
 client.subCommands = new Collection();
 client.buttons = new Collection();
 
+load_events(client);
+
 app.get("/", (req, res) => {
     // returns 500 if client isn't logged in.
     if (client.user === null) return res.sendStatus(500);
@@ -37,8 +39,4 @@ app.listen(config.port, () =>
     console.log(`[EXPRESS] Listening on port ${config.port}`)
 );
 
-client.login(process.env.TOKEN).then(() => {
-    load_events(client);
-    load_commands(client);
-    load_buttons(client);
-});
+client.login(process.env.TOKEN);

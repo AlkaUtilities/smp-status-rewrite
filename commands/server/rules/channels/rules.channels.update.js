@@ -34,12 +34,12 @@ module.exports = {
 
             if (!isArray(data.messages)) {
                 return interaction.followUp({
-                    content: "Error: key `messages` in json is not an array",
+                    content: "Error: key `messages` in json is not an array.",
                 });
             }
 
             const rules = new EmbedBuilder()
-                .setTitle("asdsdf")
+                .setTitle("Rules")
                 .setDescription(
                     data.rules
                         .map((r) => `${data.rules.indexOf(r) + 1}. ${r}`)

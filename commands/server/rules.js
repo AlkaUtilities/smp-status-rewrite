@@ -5,8 +5,8 @@ module.exports = {
     disabled: false, // is the command disabled?
     hasESub: true, // does the command has an external sub command?
     initialreply: false, // does command execute with an initial reply?
-    developer: true, // is command developer only?
-    global: false, // is the command global?
+    developer: false, // is command developer only?
+    global: true, // is the command global?
     data: new SlashCommandBuilder()
         .setName("rules")
         .setDescription("Command to manage rules")

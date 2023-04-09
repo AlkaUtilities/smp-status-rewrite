@@ -11,6 +11,11 @@ const config = require("../../config/config.json");
 
 module.exports = {
     name: "info",
+    disabled: false, // is the command disabled?
+    hasESub: false, // does the command has an external sub command?
+    initialreply: false, // does command execute with an initial reply?
+    developer: false, // is command developer only?
+    global: true, // is the command global?
     data: new SlashCommandBuilder()
         .setName("info")
         .setDescription("Sends info embed")

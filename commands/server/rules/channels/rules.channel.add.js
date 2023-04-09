@@ -30,18 +30,18 @@ module.exports = {
 
             if (!channel.isTextBased())
                 return interaction.followUp({
-                    content: "Error: specified channel is not a text channel",
+                    content: "Error: specified channel is not a text channel.",
                 });
 
             if (!("messages" in data)) {
                 return interaction.followUp({
-                    content: "Error: key `messages` is not found in json",
+                    content: "Error: key `messages` is not found in json.",
                 });
             }
 
             if (!isArray(data.messages)) {
                 return interaction.followUp({
-                    content: "Error: key `messages` in json is not an array",
+                    content: "Error: key `messages` in json is not an array.",
                 });
             }
 
