@@ -8,14 +8,15 @@ const {
 const fs = require("fs");
 
 module.exports = {
-    subCommand: "rules.remove",
+    subCommand: "rules.modify",
     /**
      * @param {ChatInputCommandInteraction} interaction
      */
     async execute(interaction, client) {
         const { options } = interaction;
         await interaction.deferReply({ ephemeral: true });
-        const position = options.getInteger("position");
+        const position = options.getInteger("position", true);
+        const new_rule = options.getString("new_rule", true);
         try {
             const data = JSON.parse(fs.readFileSync("./config/rules.json"));
 
@@ -34,9 +35,15 @@ module.exports = {
                     content: "Error: key `rules` in json is not an array.",
                 });
 
+            if (data.rules.length > position)
+                return interaction.followUp({
+                    content: `Error: the specified position cannot be greater than the rules length.\nPosition: \`${position}\``,
+                });
+
             // If position is undefined, put it at the end of the list
             // else put it on the mentioned position
-            data.rules.splice(position - 1, 1);
+            const currentRule = data.rules[position - 1];
+            data.rules[position - 1] = new_rule;
 
             const buttonId = interaction.id;
 
@@ -45,9 +52,16 @@ module.exports = {
                 .setDescription(
                     data.rules
                         .map((r) => `${data.rules.indexOf(r) + 1}. ${r}`)
-                        .join("\n") || "There are no rules."
+                        .join("\n") || "There are no rule."
                 )
                 .setColor("#009933");
+            const embed2 = new EmbedBuilder()
+                .setTitle(`Modified rule ${position}`)
+                .setDescription(
+                    `from \`\`\`${currentRule}\`\`\` to \`\`\`${new_rule}\`\`\``
+                )
+                .setColor("#009933");
+
             const buttonApply = {
                 id: `apply${buttonId}`,
                 async execute(interaction) {
@@ -56,7 +70,7 @@ module.exports = {
                         JSON.stringify(data, null, 4)
                     );
                     interaction.reply({
-                        content: "Changes applied.",
+                        content: "Changes applied",
                         ephemeral: true,
                     });
                     client.buttons.sweep((i) => i.id.includes(buttonId));
@@ -68,7 +82,7 @@ module.exports = {
                 id: `cancel${buttonId}`,
                 async execute(interaction) {
                     interaction.reply({
-                        content: "Changes canceled.",
+                        content: "Changes canceled",
                         ephemeral: true,
                     });
                     client.buttons.sweep((i) => i.id.includes(buttonId));
@@ -80,7 +94,7 @@ module.exports = {
             client.buttons.set(buttonCancel.id, buttonCancel);
 
             return interaction.followUp({
-                embeds: [embed],
+                embeds: [embed, embed2],
                 components: [
                     new ActionRowBuilder().addComponents(
                         new ButtonBuilder()

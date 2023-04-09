@@ -55,5 +55,27 @@ module.exports = {
                         .setMinValue(1)
                         .setRequired(true)
                 )
+        )
+        .addSubcommand((sub) =>
+            sub
+                .setName("modify")
+                .setDescription("Modifies a rule")
+                .addIntegerOption((int) =>
+                    int
+                        .setName("position")
+                        .setDescription(
+                            "The position of the rule that will be modified"
+                        )
+                        .setMinValue(1)
+                        .setRequired(true)
+                )
+                .addStringOption((str) =>
+                    str
+                        .setName("new_rule")
+                        .setDescription(
+                            "New rule to replace the rule in position"
+                        )
+                        .setRequired(true)
+                )
         ),
 };

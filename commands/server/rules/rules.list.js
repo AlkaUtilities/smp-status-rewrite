@@ -16,17 +16,17 @@ module.exports = {
 
             if (!data)
                 return interaction.followUp({
-                    content: "Error: json is undefined",
+                    content: "Error: json is undefined.",
                 });
 
             if (!("rules" in data))
                 return interaction.followUp({
-                    content: "Error: key `rules` is not found in json",
+                    content: "Error: key `rules` is not found in json.",
                 });
 
             if (!isArray(data.rules))
                 return interaction.followUp({
-                    content: "Error: key `rules` in json is not an array",
+                    content: "Error: key `rules` in json is not an array.",
                 });
 
             if (!display || display == "embed") {
@@ -35,11 +35,9 @@ module.exports = {
                     .setDescription(
                         data.rules
                             .map((r) => `${data.rules.indexOf(r) + 1}. ${r}`)
-                            .join("\n") || "There are no rules"
+                            .join("\n") || "There are no rule."
                     )
-                    .setColor("#009933")
-                    .setTimestamp();
-
+                    .setColor("#009933");
                 interaction.followUp({ embeds: [embed], ephemeral: true });
             } else if (display == "json") {
                 interaction.followUp({
