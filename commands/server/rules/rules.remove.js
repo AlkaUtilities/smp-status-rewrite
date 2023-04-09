@@ -47,7 +47,7 @@ module.exports = {
                         .map((r) => `${data.rules.indexOf(r) + 1}. ${r}`)
                         .join("\n") || "There are no rules."
                 )
-                .setColor("#009933");
+                .setColor(data.config.embed_color || "#009933");
             const buttonApply = {
                 id: `apply${buttonId}`,
                 async execute(interaction) {

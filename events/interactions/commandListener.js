@@ -41,17 +41,30 @@ module.exports = {
             });
 
         const subCommand = interaction.options.getSubcommand(false);
+        const subCommandGroup = interaction.options.getSubcommandGroup(false);
 
         if (subCommand && command.hasESub) {
-            const subCommandFile = client.subCommands.get(
-                `${interaction.command?.name}.${subCommand}`
-            );
-            if (!subCommandFile) {
-                return interaction.reply({
-                    content: `This sub command is outdated. \n\`${interaction.command?.name}.${subCommand}\``,
-                    ephemeral: true,
-                });
-            } else subCommandFile.execute(interaction, client);
+            if (subCommandGroup) {
+                const subCommandFile = client.subCommands.get(
+                    `${interaction.command?.name}.${subCommandGroup}.${subCommand}`
+                );
+                if (!subCommandFile) {
+                    return interaction.reply({
+                        content: `This sub command is outdated. \n\`${interaction.command?.name}.${subCommandGroup}.${subCommand}\``,
+                        ephemeral: true,
+                    });
+                } else subCommandFile.execute(interaction, client);
+            } else {
+                const subCommandFile = client.subCommands.get(
+                    `${interaction.command?.name}.${subCommand}`
+                );
+                if (!subCommandFile) {
+                    return interaction.reply({
+                        content: `This sub command is outdated. \n\`${interaction.command?.name}.${subCommand}\``,
+                        ephemeral: true,
+                    });
+                } else subCommandFile.execute(interaction, client);
+            }
         } else command.execute(interaction, client);
     },
 };

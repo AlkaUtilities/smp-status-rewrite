@@ -1,15 +1,7 @@
 const dotenv = require("dotenv");
 dotenv.config();
 
-const {
-    Client,
-    IntentsBitField,
-    Partials,
-    ChannelType,
-    EmbedBuilder,
-    ActivityType,
-    Collection,
-} = require("discord.js");
+const { Client, IntentsBitField, Partials, Collection } = require("discord.js");
 
 const { status } = require("minecraft-server-util");
 const express = require("express");

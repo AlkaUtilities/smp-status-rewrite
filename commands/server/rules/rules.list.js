@@ -37,7 +37,7 @@ module.exports = {
                             .map((r) => `${data.rules.indexOf(r) + 1}. ${r}`)
                             .join("\n") || "There are no rule."
                     )
-                    .setColor("#009933");
+                    .setColor(data.config.embed_color || "#009933");
                 interaction.followUp({ embeds: [embed], ephemeral: true });
             } else if (display == "json") {
                 interaction.followUp({

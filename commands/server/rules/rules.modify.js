@@ -54,13 +54,13 @@ module.exports = {
                         .map((r) => `${data.rules.indexOf(r) + 1}. ${r}`)
                         .join("\n") || "There are no rule."
                 )
-                .setColor("#009933");
+                .setColor(data.config.embed_color || "#009933");
             const embed2 = new EmbedBuilder()
                 .setTitle(`Modified rule ${position}`)
                 .setDescription(
                     `from \`\`\`${currentRule}\`\`\` to \`\`\`${new_rule}\`\`\``
                 )
-                .setColor("#009933");
+                .setColor(data.config.embed_color || "#009933");
 
             const buttonApply = {
                 id: `apply${buttonId}`,

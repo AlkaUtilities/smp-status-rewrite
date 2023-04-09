@@ -1,6 +1,19 @@
 {
     "rules": [
         "No cheating.",
-        "No griefing."
-    ]
+        "No duping.",
+        "No lag machines",
+        "No using alts.",
+        "No trying to login into other peoples account",
+        "Griefing is **allowed**"
+    ],
+    "messages": [
+        {
+            "channel": "1018828758569996370",
+            "message": "1094469355561037895"
+        }
+    ],
+    "config": {
+        "embed_color": "#009933"
+    }
 }

@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 
 module.exports = {
     name: "rules",
@@ -11,6 +11,7 @@ module.exports = {
         .setName("rules")
         .setDescription("Command to manage rules")
         .setDMPermission(false)
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addSubcommand((sub) =>
             sub
                 .setName("list")
@@ -76,6 +77,46 @@ module.exports = {
                             "New rule to replace the rule in position"
                         )
                         .setRequired(true)
+                )
+        )
+        .addSubcommandGroup((scg) =>
+            scg
+                .setName("channel")
+                .setDescription("Rules configuration")
+                .addSubcommand((sub) =>
+                    sub
+                        .setName("add")
+                        .setDescription("Channel to send the embed to")
+                        .addChannelOption((channel) =>
+                            channel
+                                .setName("channel")
+                                .setDescription("Channel to send the embed to")
+                                .setRequired(true)
+                        )
+                )
+                .addSubcommand((sub) =>
+                    sub
+                        .setName("remove")
+                        .setDescription("Removes the embed in the channel")
+                        .addChannelOption((str) =>
+                            str
+                                .setName("channel")
+                                .setDescription(
+                                    "The channel where the message is in"
+                                )
+                                .setRequired(true)
+                        )
+                        .addStringOption((str) =>
+                            str
+                                .setName("message_id")
+                                .setDescription("Message id")
+                                .setRequired(true)
+                        )
+                )
+                .addSubcommand((sub) =>
+                    sub
+                        .setName("update")
+                        .setDescription("Updates existing rules messages")
                 )
         ),
 };

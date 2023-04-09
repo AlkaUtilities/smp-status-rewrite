@@ -8,7 +8,8 @@
 
     "smp": {
         "ip": "LowEndSMP.aternos.me",
-        "port": 53537
+        "port": 53537,
+        "version": "1.19.4"
     },
 
     "status": {
