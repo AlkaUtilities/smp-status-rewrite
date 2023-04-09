@@ -1,3 +1,9 @@
+/*
+=============================================
+      - By Ollie.
+=============================================
+*/
+
 const { Client } = require("discord.js");
 const { load_files } = require("../functions/file_loader");
 const Table = require("cli-table");
