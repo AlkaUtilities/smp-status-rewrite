@@ -71,6 +71,7 @@ async function load_commands(client, global = false) {
             table.push([
                 file.split("/").pop() || "unknown",
                 "",
+                "",
                 config.cli.status_bad,
             ]);
             invalidCommands++;

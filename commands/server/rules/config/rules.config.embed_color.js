@@ -2,21 +2,23 @@ const {
     ChatInputCommandInteraction,
     EmbedBuilder,
     ActionRowBuilder,
-    ButtonBuilder,
     ButtonStyle,
+    ButtonBuilder,
+    Client,
 } = require("discord.js");
 const fs = require("fs");
-const util = require("./utilities");
+const util = require("../utilities");
 
 module.exports = {
-    subCommand: "rules.remove",
+    subCommand: "rules.config.embed_color",
     /**
      * @param {ChatInputCommandInteraction} interaction
+     * @param {Client} client
      */
     async execute(interaction, client) {
         const { options } = interaction;
         await interaction.deferReply({ ephemeral: true });
-        const position = options.getInteger("position");
+        const hexcode = options.getString("hex", true);
         try {
             const data = JSON.parse(fs.readFileSync("./config/rules.json"));
 
@@ -25,19 +27,25 @@ module.exports = {
                     content: "Error: json is undefined.",
                 });
 
-            if (!("rules" in data))
+            if (!("config" in data))
                 return interaction.followUp({
                     content: "Error: key `rules` is not found in json.",
                 });
 
-            if (!isArray(data.rules))
+            if (!("embed_color" in data.config))
                 return interaction.followUp({
-                    content: "Error: key `rules` in json is not an array.",
+                    content:
+                        "Error: key `embed_color` is not found in `data.config`",
                 });
 
-            // If position is undefined, put it at the end of the list
-            // else put it on the mentioned position
-            data.rules.splice(position - 1, 1);
+            const regex = /^#[0-9A-F]{6}$/i;
+
+            if (!regex.test(hexcode))
+                return interaction.followUp({
+                    content: `Error: hex code is invalid.\nHex: \`${hexcode}\``,
+                });
+
+            data.config.embed_color = hexcode;
 
             const buttonId = interaction.id;
 
@@ -46,7 +54,7 @@ module.exports = {
                 .setDescription(
                     data.rules
                         .map((r) => `${data.rules.indexOf(r) + 1}. ${r}`)
-                        .join("\n") || "There are no rules."
+                        .join("\n") || "There are no rule."
                 )
                 .setColor(data.config.embed_color || "#009933");
 
@@ -70,15 +78,8 @@ module.exports = {
                 ],
             });
         } catch (err) {
-            interaction.followUp({
-                content: `Error: \`\`\`${err}\`\`\``,
-            });
+            interaction.followUp({ content: `Error: \`\`\`${err}\`\`\`` });
             console.log(err);
-            return;
         }
     },
 };
-
-function isArray(a) {
-    return !!a && a.constructor === Array;
-}

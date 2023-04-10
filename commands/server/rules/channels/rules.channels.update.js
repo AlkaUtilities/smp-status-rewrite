@@ -12,7 +12,6 @@ module.exports = {
      * @param {Client} client
      */
     async execute(interaction, client) {
-        const { options } = interaction;
         await interaction.deferReply({ ephemeral: true });
         try {
             const data = JSON.parse(fs.readFileSync("./config/rules.json"));

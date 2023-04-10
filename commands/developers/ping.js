@@ -1,6 +1,7 @@
 const {
     ChatInputCommandInteraction,
     SlashCommandBuilder,
+    EmbedBuilder,
 } = require("discord.js");
 
 module.exports = {
@@ -17,8 +18,10 @@ module.exports = {
      * @param {ChatInputCommandInteraction} interaction
      */
     execute(interaction, client) {
+        const embed = new EmbedBuilder().setTitle("mongus").setColor("#ff0000");
         interaction.reply({
             content: "Pong! Rewritten in Javascript",
+            embeds: [embed],
             ephemeral: true,
         });
         console.log(client.buttons);

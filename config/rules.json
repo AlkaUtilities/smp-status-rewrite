@@ -5,15 +5,18 @@
         "No lag machines",
         "No using alts.",
         "No trying to login into other peoples account",
-        "Griefing is **allowed**"
+        "Griefing is **allowed**",
+        "test 1",
+        "test 2",
+        "goofy goober"
     ],
     "messages": [
         {
             "channel": "1018828758569996370",
-            "message": "1094469355561037895"
+            "message": "1094848954233004092"
         }
     ],
     "config": {
-        "embed_color": "#009933"
+        "embed_color": "#00ff00"
     }
 }

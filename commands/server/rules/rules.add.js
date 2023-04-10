@@ -6,6 +6,7 @@ const {
     ButtonStyle,
 } = require("discord.js");
 const fs = require("fs");
+const util = require("./utilities");
 
 module.exports = {
     subCommand: "rules.add",
@@ -53,58 +54,23 @@ module.exports = {
                         .join("\n") || "There are no rule."
                 )
                 .setColor(data.config.embed_color || "#009933");
-            const buttonApply = {
-                id: `apply${buttonId}`,
-                async execute(interaction) {
-                    fs.writeFileSync(
-                        "./config/rules.json",
-                        JSON.stringify(data, null, 4)
-                    );
-                    interaction.reply({
-                        content: "Changes applied.",
-                        ephemeral: true,
-                    });
-                    client.buttons.sweep((i) => i.id.includes(buttonId));
-                    return;
-                },
-            };
 
-            const buttonCancel = {
-                id: `cancel${buttonId}`,
-                async execute(interaction) {
-                    interaction.reply({
-                        content: "Changes canceled.",
-                        ephemeral: true,
-                    });
-                    client.buttons.sweep((i) => i.id.includes(buttonId));
-                    return;
-                },
-            };
-
-            client.buttons.set(buttonApply.id, buttonApply);
-            client.buttons.set(buttonCancel.id, buttonCancel);
+            const applyButton = await util.CreateApplyButton(
+                client,
+                buttonId,
+                data
+            );
+            const cancelButton = await util.CreateCancelButton(
+                client,
+                buttonId
+            );
 
             return interaction.followUp({
                 embeds: [embed],
                 components: [
                     new ActionRowBuilder().addComponents(
-                        new ButtonBuilder()
-                            .setCustomId(`apply${buttonId}`)
-                            .setLabel("Apply")
-                            .setEmoji({
-                                name: "true",
-                                id: "1010479956909891614",
-                            })
-                            .setStyle(ButtonStyle.Success),
-
-                        new ButtonBuilder()
-                            .setCustomId(`cancel${buttonId}`)
-                            .setLabel("Cancel")
-                            .setEmoji({
-                                name: "false",
-                                id: "1010479954372349993",
-                            })
-                            .setStyle(ButtonStyle.Danger)
+                        applyButton,
+                        cancelButton
                     ),
                 ],
             });

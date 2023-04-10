@@ -118,5 +118,21 @@ module.exports = {
                         .setName("update")
                         .setDescription("Updates existing rules messages")
                 )
+        )
+        .addSubcommandGroup((scg) =>
+            scg
+                .setName("config")
+                .setDescription("Configure stuff")
+                .addSubcommand((sub) =>
+                    sub
+                        .setName("embed_color")
+                        .setDescription("Set color of embed")
+                        .addStringOption((str) =>
+                            str
+                                .setName("hex")
+                                .setDescription("Hex code of color")
+                                .setRequired(true)
+                        )
+                )
         ),
 };
