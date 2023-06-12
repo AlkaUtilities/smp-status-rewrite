@@ -62,17 +62,15 @@ const fs = require("fs");
  * Creates apply button, returns button builder
  * @param {Client} client
  * @param {stirng} buttonId
+ * @param {stirng} filePath
  * @param {any} data
  * @returns
  */
-async function CreateApplyButton(client, buttonId, data) {
+async function CreateApplyButton(client, buttonId, filePath, data) {
     client.buttons.set(`apply${buttonId}`, {
         id: `apply${buttonId}`,
         async execute(interaction) {
-            fs.writeFileSync(
-                "./config/rules.json",
-                JSON.stringify(data, null, 4)
-            );
+            fs.writeFileSync(filePath, JSON.stringify(data, null, 4));
             UpdateRules(client);
             interaction.reply({
                 content:

@@ -58,6 +58,7 @@ module.exports = {
             const applyButton = await util.CreateApplyButton(
                 client,
                 buttonId,
+                "./config/rules.json",
                 data
             );
             const cancelButton = await util.CreateCancelButton(

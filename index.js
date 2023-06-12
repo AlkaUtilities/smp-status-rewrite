@@ -8,8 +8,6 @@ const express = require("express");
 
 const config = require("./config/config.json");
 const { load_events } = require("./handlers/event");
-const { load_commands } = require("./handlers/command");
-const { load_buttons } = require("./handlers/button");
 
 const { GuildMessages, Guilds, GuildMembers } = IntentsBitField.Flags;
 const { User, Message, GuildMember, ThreadMember } = Partials;
@@ -39,4 +37,4 @@ app.listen(config.port, () =>
     console.log(`[EXPRESS] Listening on port ${config.port}`)
 );
 
-client.login(process.env.TOKEN);
+client.login(process.env.TOKEN_DEV);
