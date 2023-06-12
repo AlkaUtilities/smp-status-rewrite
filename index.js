@@ -37,4 +37,4 @@ app.listen(config.port, () =>
     console.log(`[EXPRESS] Listening on port ${config.port}`)
 );
 
-client.login(process.env.TOKEN_DEV);
+client.login(process.env.TOKEN_PROD);

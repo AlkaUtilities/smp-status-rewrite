@@ -7,14 +7,9 @@
     "debug": true,
 
     "smp": {
-        "ip": "LowEndSMP.aternos.me",
-        "port": 53537,
-        "version": "1.19.4"
-    },
-
-    "status": {
-        "channel": "1093538615520399420",
-        "updateInterval": 5
+        "ip": "example.com",
+        "port": 25565,
+        "version": "1.12.2"
     },
 
     "icons": {
