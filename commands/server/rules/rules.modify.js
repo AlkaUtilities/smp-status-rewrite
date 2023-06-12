@@ -67,7 +67,8 @@ module.exports = {
                 client,
                 buttonId,
                 "./config/rules.json",
-                data
+                data,
+                "Rule has been modified"
             );
             const cancelButton = await util.CreateCancelButton(
                 client,
