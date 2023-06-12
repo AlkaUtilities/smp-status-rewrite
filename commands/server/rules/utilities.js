@@ -60,24 +60,30 @@ const fs = require("fs");
 
 /**
  * Creates apply button, returns button builder
- * @param {Client} client
- * @param {stirng} buttonId
- * @param {any} data
+ * @param {Client} client Client object
+ * @param {stirng} buttonId Button ID
+ * @param {stirng} filePath File path of JSON to overwrite
+ * @param {any} data Data to overwrite JSON file with
+ * @param {string} replyContent Reply content
+ * @param {bool} ephemeral Ephemeral reply (Default: `true`)
  * @returns
  */
-async function CreateApplyButton(client, buttonId, data) {
+async function CreateApplyButton(
+    client,
+    buttonId,
+    filePath,
+    data,
+    replyContent,
+    ephemeral = true
+) {
     client.buttons.set(`apply${buttonId}`, {
         id: `apply${buttonId}`,
         async execute(interaction) {
-            fs.writeFileSync(
-                "./config/rules.json",
-                JSON.stringify(data, null, 4)
-            );
+            fs.writeFileSync(filePath, JSON.stringify(data, null, 4));
             UpdateRules(client);
             interaction.reply({
-                content:
-                    "Changes applied, all rules messages have been updated.",
-                ephemeral: true,
+                content: replyContent,
+                ephemeral: ephemeral,
             });
             client.buttons.sweep((i) => i.id.includes(buttonId));
             return;
