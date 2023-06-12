@@ -6,7 +6,7 @@ const {
 
 module.exports = {
     name: "ping",
-    disabled: false, // is the command disabled?
+    disabled: true, // is the command disabled?
     hasESub: false, // does the command has an external sub command?
     initialReply: false, // does command execute with an initial reply?
     developer: true, // is command developer only?
